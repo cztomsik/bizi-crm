@@ -1,0 +1,22 @@
+{
+  "private": true,
+  "name": "bizi-crm",
+  "engines": {
+    "node": "4.x"
+  },
+  "scripts": {
+    "build": "babel app/ --out-dir build/ && webpack build/index.js build/bundle.js",
+    "dev": "node-dev server.js & babel app/ --out-dir build/ --watch --source-maps inline & webpack-dev-server --content-base-target http://127.0.0.1:5000 build/index.js",
+    "postinstall": "npm run build"
+  },
+  "dependencies": {
+    "bizi": "git://github.com/cztomsik/bizi2.git#build-latest",
+    "babel": "5.8.34",
+    "body-parser": "1.14.2",
+    "express": "4.13.3",
+    "lodash": "^3.10.1",
+    "node-dev": "2.7.1",
+    "webpack": "1.12.11",
+    "webpack-dev-server": "1.14.1"
+  }
+}
