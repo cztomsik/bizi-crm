@@ -6,7 +6,7 @@
   },
   "scripts": {
     "build": "babel app/ --out-dir build/ && webpack build/index.js build/bundle.js",
-    "dev": "node-dev server.js & babel app/ --out-dir build/ --watch --source-maps inline & webpack-dev-server --content-base-target http://127.0.0.1:5000 build/index.js",
+    "dev": "node-dev server.js & babel app/ --out-dir build/ --watch --source-maps inline & webpack-dev-server --devtool eval --content-base-target http://127.0.0.1:5000 build/index.js",
     "postinstall": "npm run build"
   },
   "dependencies": {

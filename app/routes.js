@@ -1,11 +1,15 @@
-var CustomersIndex = require('./customers/customers-index');
-var CustomersNew = require('./customers/customers-new');
-var CustomersShow = require('./customers/customers-show');
-var CustomersEdit = require('./customers/customers-edit');
+var SignInIndex = require('./sign-in/sign-in-index');
+var DashboardIndex = require('./dashboard/dashboard-index');
+var ContactsIndex = require('./contacts/contacts-index');
+var ContactsNew = require('./contacts/contacts-new');
+var ContactsShow = require('./contacts/contacts-show');
+var ContactsEdit = require('./contacts/contacts-edit');
 
 module.exports = {
-  'customers-index': CustomersIndex,
-  'customers-new': CustomersNew,
-  'customers-show': CustomersShow,
-  'customers-edit': CustomersEdit
+  'sign-in-index': SignInIndex,
+  'dashboard-index': DashboardIndex,
+  'contacts-index': ContactsIndex,
+  'contacts-new': ContactsNew,
+  'contacts-show': ContactsShow,
+  'contacts-edit': ContactsEdit
 };
