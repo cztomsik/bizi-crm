@@ -1,5 +1,8 @@
+'use strict';
+
 var _ = require('lodash');
 var contacts = require('./_contacts');
+var lastId = contacts[contacts.length - 1].id;
 
 module.exports = {
   getContacts: function(query){
@@ -29,7 +32,7 @@ module.exports = {
   },
 
   createContact: function(data){
-    var c = _.assign({id: contacts.length + 1}, data);
+    var c = _.assign({id: ++lastId}, data);
 
     contacts.push(c);
     return c;
@@ -38,7 +41,7 @@ module.exports = {
   updateContact: function(data){
     var c = this.getContact({id: data.id});
 
-    _.assign(c, data)
+    _.assign(c, data);
     return c;
   },
 

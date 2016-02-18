@@ -1,8 +1,8 @@
 import * as b from 'bizi';
-import contactsService from './contacts-service';
+import contactService from './contact-service';
 import router from '../router';
 
-class ContactsIndex extends b.Component{
+class ContactListingPage extends b.Component{
   init(opts){
     this.contacts = [];
 
@@ -17,7 +17,7 @@ class ContactsIndex extends b.Component{
   }
 
   searchContacts(search){
-    return contactsService.getContacts({search})
+    return contactService.getContacts({search})
       .then(cs => cs.map((c) => {
         c.mailto = c.email && `mailto:${c.email}`;
 
@@ -39,7 +39,7 @@ class ContactsIndex extends b.Component{
   }
 }
 
-ContactsIndex.tpl = [b.Div, {},
+ContactListingPage.tpl = [b.Div, {},
   [b.Div, {cls: 'jumbotron'},
     [b.Div, {cls: 'container-fluid clearfix'},
       [b.Heading, {text: 'Contacts', cls: 'pull-left'}],
@@ -63,4 +63,4 @@ ContactsIndex.tpl = [b.Div, {},
   ]
 ];
 
-export default ContactsIndex;
+export default ContactListingPage;

@@ -1,15 +1,15 @@
-var SignInIndex = require('./sign-in/sign-in-index');
-var DashboardIndex = require('./dashboard/dashboard-index');
-var ContactsIndex = require('./contacts/contacts-index');
-var ContactsNew = require('./contacts/contacts-new');
-var ContactsShow = require('./contacts/contacts-show');
-var ContactsEdit = require('./contacts/contacts-edit');
+import SignInPage from './sign-in/sign-in-page';
+import DashboardPage from './dashboard/dashboard-page';
+import ContactListingPage from './contacts/contact-listing-page';
+import NewContactPage from './contacts/new-contact-page';
+import ShowContactPage from './contacts/show-contact-page';
+import EditContactPage from './contacts/edit-contact-page';
 
 module.exports = {
-  'sign-in-index': SignInIndex,
-  'dashboard-index': DashboardIndex,
-  'contacts-index': ContactsIndex,
-  'contacts-new': ContactsNew,
-  'contacts-show': ContactsShow,
-  'contacts-edit': ContactsEdit
+  'sign-in': SignInPage,
+  'dashboard': DashboardPage,
+  'contacts': ContactListingPage,
+  'contacts-new': NewContactPage,
+  'contacts-show': ShowContactPage,
+  'contacts-edit': EditContactPage
 };

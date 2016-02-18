@@ -1,23 +1,23 @@
 import * as b from 'bizi';
 import ContactForm from './_contact-form';
-import contactsService from './contacts-service';
+import contactService from './contact-service';
 import router from '../router';
 
-class ContactsEdit extends b.Component{
+class EditContactPage extends b.Component{
   init({id}){
     this.contact = {};
 
-    return contactsService.getContact(id).then(c => this.contact = c);
+    return contactService.getContact(id).then(c => this.contact = c);
   }
 
   update(){
-    return contactsService.updateContact(this.contact).then(() => {
+    return contactService.updateContact(this.contact).then(() => {
       return router.goTo('contacts-show', {id: this.contact.id});
     });
   }
 }
 
-ContactsEdit.tpl = [b.Div, {},
+EditContactPage.tpl = [b.Div, {},
   [b.Div, {cls: 'jumbotron'},
     [b.Div, {cls: 'container-fluid'},
       [b.Heading, {text: 'Edit Contact'}],
@@ -32,4 +32,4 @@ ContactsEdit.tpl = [b.Div, {},
   ]
 ];
 
-export default ContactsEdit;
+export default EditContactPage;

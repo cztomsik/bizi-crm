@@ -1,9 +1,9 @@
 import * as b from 'bizi';
 import ContactForm from './_contact-form';
-import contactService from './contacts-service';
+import contactService from './contact-service';
 import router from '../router';
 
-class ContactsNew extends b.Component{
+class NewContactPage extends b.Component{
   init(opts){
     this.contact = {
       name: null,
@@ -23,7 +23,7 @@ class ContactsNew extends b.Component{
   }
 }
 
-ContactsNew.tpl = [b.Div, {},
+NewContactPage.tpl = [b.Div, {},
   [b.Div, {cls: 'jumbotron'},
     [b.Div, {cls: 'container-fluid'},
       [b.Heading, {text: 'New Contact'}]
@@ -37,4 +37,4 @@ ContactsNew.tpl = [b.Div, {},
   ]
 ];
 
-export default ContactsNew;
+export default NewContactPage;

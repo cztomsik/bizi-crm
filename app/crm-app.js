@@ -12,37 +12,38 @@ class CrmApp extends b.Component{
     router.routes = routes;
 
     router.listener = (state) => {
-      if (this.contents.length){
-        this.contents[0].destroy();
+      if (this.page){
+        this.page.destroy();
       }
 
-      this.contents = [new state.page(state.params)];
+      this.page = new state.page(state.params);
+      this.contents = [this.page.el];
       this.render();
     };
 
-    //router.goTo('sign-in-index');
-    router.goTo('dashboard-index');
-    //router.goTo('contacts-show', {id: 1});
+    //router.goTo('sign-in');
+    //router.goTo('dashboard');
+    //router.goTo('contacts');
+    router.goTo('contacts-show', {id: 1});
     //router.goTo('contacts-edit', {id: 1});
-    //router.goTo('contacts-index');
     document.body.appendChild(this.el);
     console.log(this);
   }
 
   contactsIndex(){
-    return router.goTo('contacts-index');
+    return router.goTo('contacts');
   }
 
   dashboardIndex(){
-    return router.goTo('dashboard-index');
+    return router.goTo('dashboard');
   }
 
   signOut(){
-    return router.goTo('sign-in-index');
+    return router.goTo('sign-in');
   }
 
   destroy(){
-    this.contents[0].destroy();
+    this.page.destroy();
     this.contents = [];
     this.render();
     super.destroy();
@@ -50,7 +51,7 @@ class CrmApp extends b.Component{
 }
 
 CrmApp.tpl = [b.Div, {},
-  [b.Div, {cls: 'navbar navbar-inverse navbar-static-top m-a-0'},
+  [b.Div, {cls: 'navbar navbar-static-top m-a-0 navbar-inverse'},
     [b.Div, {cls: 'container-fluid'},
       [b.Div, {cls: 'navbar-header'},
         [b.Link, {text: 'Bizi CRM', href: '/', cls: 'navbar-brand'}],

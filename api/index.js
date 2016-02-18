@@ -1,6 +1,6 @@
 var express = require('express');
 var bodyParser = require('body-parser');
-var contactsService = require('./contacts-service');
+var contactService = require('./contact-service');
 
 var api = express();
 module.exports = api;
@@ -12,11 +12,11 @@ var parseJson = bodyParser.json();
 
 
 // TODO: validate POSTs
-api.get('/contacts', end(contactsService.getContacts.bind(contactsService)));
-api.post('/contacts', parseJson, end(contactsService.createContact.bind(contactsService)));
-api.get('/contacts/:id', end(contactsService.getContact.bind(contactsService)));
-api.post('/contacts/:id', parseJson, end(contactsService.updateContact.bind(contactsService)));
-api.delete('/contacts/:id', end(contactsService.deleteContact.bind(contactsService)));
+api.get('/contacts', end(contactService.getContacts.bind(contactService)));
+api.post('/contacts', parseJson, end(contactService.createContact.bind(contactService)));
+api.get('/contacts/:id', end(contactService.getContact.bind(contactService)));
+api.post('/contacts/:id', parseJson, end(contactService.updateContact.bind(contactService)));
+api.delete('/contacts/:id', end(contactService.deleteContact.bind(contactService)));
 
 
 // req.body will be always filled if parseJson is used globally
