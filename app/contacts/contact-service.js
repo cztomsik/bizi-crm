@@ -1,36 +1,27 @@
-export default {
-  getContacts({search = ''}){
-    return $.get('/api/contacts/', {search});
-  },
+import angular from 'angular';
 
-  createContact(c){
-    return $.ajax({
-      type: 'POST',
-      url: '/api/contacts/',
-      data: JSON.stringify(c),
-      contentType: 'application/json; charset=utf-8',
-      dataType: 'json'
-    });
-  },
+const getData = (res => res.data);
 
-  getContact(id){
-    return $.get('/api/contacts/' + id);
-  },
+angular.module('app').factory('contactService', ($http) => {
+  return {
+    getContacts({search = ''}){
+      return $http.get('/api/contacts/', {params: {search}}).then(getData);
+    },
 
-  updateContact(c){
-    return $.ajax({
-      type: 'POST',
-      url: '/api/contacts/' + c.id,
-      data: JSON.stringify(c),
-      contentType: 'application/json; charset=utf-8',
-      dataType: 'json'
-    });
-  },
+    createContact(c){
+      return $http.post('/api/contacts/', c).then(getData);
+    },
 
-  deleteContact(c){
-    return $.ajax({
-      type: 'DELETE',
-      url: '/api/contacts/' + c.id
-    });
-  }
-};
+    getContact(id){
+      return $http.get('/api/contacts/' + id).then(getData);
+    },
+
+    updateContact(c){
+      return $http.post('/api/contacts/' + c.id, c).then(getData);
+    },
+
+    deleteContact(id){
+      return $http.delete('/api/contacts/' + id).then(getData);
+    }
+  };
+});

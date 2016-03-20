@@ -1,10 +1,24 @@
-import * as b from 'bizi';
-import ContactForm from './_contact-form';
-import contactService from './contact-service';
-import router from '../router';
+import angular from 'angular';
+import './_contact-form';
 
-class NewContactPage extends b.Component{
-  init(opts){
+angular.module('app').component('newContactPage', {
+  template: `
+    <div>
+      <div class="jumbotron">
+        <div class="container-fluid">
+          <h3>New contact</h3>
+        </div>
+      </div>
+
+      <div class="container-fluid">
+        <contact-form contact=" $ctrl.contact "></contact-form>
+
+        <button class="btn btn-primary" ng-click=" $ctrl.create() ">Create</button>
+      </div>
+    </div>
+  `,
+
+  controller: function(contactService){
     this.contact = {
       name: null,
       company: null,
@@ -14,27 +28,11 @@ class NewContactPage extends b.Component{
       address: null,
       note: null
     };
+
+    this.create = function(){
+      return contactService.createContact(this.contact).then((c) => {
+        return this.$router.navigate(['ShowContactPage', {id: c.id}]);
+      });
+    };
   }
-
-  create(){
-    return contactService.createContact(this.contact).then((c) => {
-      return router.goTo('contacts-show', {id: c.id});
-    });
-  }
-}
-
-NewContactPage.tpl = [b.Div, {},
-  [b.Div, {cls: 'jumbotron'},
-    [b.Div, {cls: 'container-fluid'},
-      [b.Heading, {text: 'New Contact'}]
-    ]
-  ],
-
-  [b.Div, {cls: 'container-fluid'},
-    [ContactForm, {contact: '= contact'}],
-
-    [b.Button, {text: 'Create', onClick: '() create'}]
-  ]
-];
-
-export default NewContactPage;
+});

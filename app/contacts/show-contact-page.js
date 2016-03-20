@@ -1,86 +1,87 @@
-import * as b from 'bizi';
-import contactService from './contact-service';
-import router from '../router';
+import angular from 'angular';
 
-class ShowContactPage extends b.Component{
-  init({id}){
-    this.contact = {};
+angular.module('app').component('showContactPage', {
+  template: `
+    <div>
+      <div class="jumbotron">
+        <div class="container-fluid">
+          <div class="btn-group pull-right">
+            <button class="btn btn-default" ng-link=" ['EditContactPage', {id: $ctrl.contact.id}] ">Edit</button>
+            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              More <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu">
+              <li><a ng-click=" $ctrl.delete() ">Delete</a></li>
+            </ul>
+          </div>
 
-    return contactService.getContact(id).then(c => this.contact = c);
+          <div class="media">
+            <div class="media-left">
+              <img src="//lorempixel.com/48/48/">
+            </div>
+            <div class="media-body">
+              <h3 class="media-heading">{{ $ctrl.contact.name }}</h3>
+              {{ $ctrl.contact.company }}
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-sm-5">
+            <div class="form-group">
+              <label>Name</label>
+              <p class="form-control-static">{{ $ctrl.contact.name }}</p>
+            </div>
+
+            <div class="form-group">
+              <label>Company</label>
+              <p class="form-control-static">{{ $ctrl.contact.company }}</p>
+            </div>
+
+            <div class="form-group">
+              <label>Job Title</label>
+              <p class="form-control-static">{{ $ctrl.contact.jobTitle }}</p>
+            </div>
+
+            <div class="form-group">
+              <label>Phone</label>
+              <p class="form-control-static">{{ $ctrl.contact.phone }}</p>
+            </div>
+
+            <div class="form-group">
+              <label>Email</label>
+              <p class="form-control-static">{{ $ctrl.contact.email }}</p>
+            </div>
+          </div>
+          <div class="col-sm-7">
+            <div class="form-group">
+              <label>Address</label>
+              <p class="form-control-static">{{ $ctrl.contact.address }}</p>
+            </div>
+
+            <div class="form-group">
+              <label>Note</label>
+              <p class="form-control-static">{{ contact.note }}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  `,
+
+  controller: function(contactService){
+    this.contact = null;
+
+    this.$routerOnActivate = function(next){
+      contactService.getContact(next.params.id).then(c => this.contact = c);
+    };
+
+    this.delete = function(){
+      return contactService.deleteContact(this.contact.id).then(() => {
+        return this.$router.navigate(['ContactListingPage']);
+      });
+    };
   }
-
-  edit(){
-    return router.goTo('contacts-edit', {id: this.contact.id});
-  }
-
-  delete(){
-    return contactService.deleteContact(this.contact).then(() => {
-      return router.goTo('contacts');
-    });
-  }
-}
-
-ShowContactPage.tpl = [b.Div, {},
-  [b.Div, {cls: 'jumbotron'},
-    [b.Div, {cls: 'container-fluid'},
-      [b.Div, {cls: 'btn-group pull-right'},
-        [b.Button, {text: 'Edit', onClick: '() edit'}],
-        [b.Button, {text: 'More'}],
-        [b.Button, {text: 'Delete', onClick: '() delete'}]
-      ],
-
-      // extra wrapper because of display: table
-      [b.Div, {},
-        [b.Div, {cls: 'media'},
-          [b.Div, {cls: 'media-left'},
-            [b.Image, {src: '//lorempixel.com/48/48/'}],
-          ],
-          [b.Div, {cls: 'media-body'},
-            [b.Span, {text: '= contact.name', cls: 'show h3 m-a-0'}],
-            [b.Span, {text: '= contact.company'}]
-          ],
-        ]
-      ]
-    ]
-  ],
-
-  [b.Div, {cls: 'container-fluid'},
-    [b.Div, {cls: 'row'},
-      [b.Div, {cls: 'col-md-5'},
-        [b.Div, {cls: 'form-group'},
-          [b.Label, {text: 'Job Title'}],
-          [b.Span, {text: '= contact.jobTitle'}]
-        ],
-
-        [b.Div, {cls: 'form-group'},
-          [b.Label, {text: 'Company'}],
-          [b.Span, {text: '= contact.company'}]
-        ],
-
-        [b.Div, {cls: 'form-group'},
-          [b.Label, {text: 'Phone'}],
-          [b.Span, {text: '= contact.phone'}]
-        ],
-
-        [b.Div, {cls: 'form-group'},
-          [b.Label, {text: 'Email'}],
-          [b.Span, {text: '= contact.email'}]
-        ]
-      ],
-
-      [b.Div, {cls: 'col-md-7'},
-        [b.Div, {cls: 'form-group'},
-          [b.Label, {text: 'Address'}],
-          [b.Span, {text: '= contact.address'}]
-        ],
-
-        [b.Div, {cls: 'form-group'},
-          [b.Label, {text: 'Note'}],
-          [b.Span, {text: '= contact.note'}]
-        ]
-      ]
-    ]
-  ]
-];
-
-export default ShowContactPage;
+});

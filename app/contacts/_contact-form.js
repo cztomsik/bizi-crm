@@ -1,46 +1,46 @@
-import * as b from 'bizi';
+import angular from 'angular';
 
-class ContactsForm extends b.Component{
-  init({contact = {}}){
-    this.contact = contact;
-  }
-}
+angular.module('app').component('contactForm', {
+  bindings: {
+    contact: '<'
+  },
 
-ContactsForm.tpl = [b.Form, {},
-  [b.Div, {cls: 'form-group'},
-    [b.Label, {text: 'Name'}],
-    [b.TextField, {value: '& contact.name'}]
-  ],
+  template: `
+    <div>
+      <div class="form-group">
+        <label>Name</label>
+        <input class="form-control" ng-model=" $ctrl.contact.name ">
+      </div>
 
-  [b.Div, {cls: 'form-group'},
-    [b.Label, {text: 'Company'}],
-    [b.TextField, {value: '& contact.company'}]
-  ],
+      <div class="form-group">
+        <label>Company</label>
+        <input class="form-control" ng-model=" $ctrl.contact.company ">
+      </div>
 
-  [b.Div, {cls: 'form-group'},
-    [b.Label, {text: 'Job Title'}],
-    [b.TextField, {value: '& contact.jobTitle'}]
-  ],
+      <div class="form-group">
+        <label>Job Title</label>
+        <input class="form-control" ng-model=" $ctrl.contact.jobTitle ">
+      </div>
 
-  [b.Div, {cls: 'form-group'},
-    [b.Label, {text: 'Phone'}],
-    [b.TextField, {value: '& contact.phone'}]
-  ],
+      <div class="form-group">
+        <label>Phone</label>
+        <input class="form-control" ng-model=" $ctrl.contact.phone ">
+      </div>
 
-  [b.Div, {cls: 'form-group'},
-    [b.Label, {text: 'Email'}],
-    [b.TextField, {value: '& contact.email'}]
-  ],
+      <div class="form-group">
+        <label>Email</label>
+        <input class="form-control" ng-model=" $ctrl.contact.email ">
+      </div>
 
-  [b.Div, {cls: 'form-group'},
-    [b.Label, {text: 'Address'}],
-    [b.TextArea, {value: '& contact.address'}]
-  ],
+      <div class="form-group">
+        <label>Address</label>
+        <textarea class="form-control" ng-model=" $ctrl.contact.address "></textarea>
+      </div>
 
-  [b.Div, {cls: 'form-group'},
-    [b.Label, {text: 'Note'}],
-    [b.TextArea, {value: '& contact.note'}]
-  ]
-];
-
-export default ContactsForm;
+      <div class="form-group">
+        <label>Note</label>
+        <textarea class="form-control" ng-model=" $ctrl.contact.note "></textarea>
+      </div>
+    </div>
+  `
+});

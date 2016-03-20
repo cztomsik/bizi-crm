@@ -1,66 +1,54 @@
-import * as b from 'bizi';
-import contactService from './contact-service';
-import router from '../router';
+import angular from 'angular';
 
-class ContactListingPage extends b.Component{
-  init(opts){
-    this.contacts = [];
+angular.module('app').component('contactListingPage', {
+  template: `
+    <div>
+      <div class="jumbotron">
+        <div class="container-fluid clearfix">
+          <h3 class="pull-left">Contacts</h3>
 
-    this.columns = [
-      {header: 'Name', tpl: [b.Link, {text: '= item.name', onClick: '= item.view'}]},
-      {header: 'Company', tpl: [b.Span, {text: '= item.company'}]},
-      {header: 'Job Title', tpl: [b.Span, {text: '= item.jobTitle'}]},
-      {header: 'Email', tpl: [b.Link, {text: '= item.email', href: '= item.mailto'}]}
-    ];
+          <a class="btn btn-default pull-right" ng-link=" ['NewContactPage'] ">New contact</a>
+        </div>
+      </div>
 
-    return this.searchContacts('');
+      <div class="container-fluid">
+        <div class="row lead">
+          <div class="col-sm-4"></div>
+          <div class="col-sm-4">
+            <input placeholder="Search" ng-model="$ctrl.search" class="form-control" ng-change=" $ctrl.searchContacts($ctrl.search) ">
+          </div>
+        </div>
+
+        <table class="table table-bordered">
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Company</th>
+              <th>Job Title</th>
+              <th>Email</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr ng-repeat=" c in $ctrl.contacts ">
+              <td><a ng-link=" ['ShowContactPage', {id: c.id}] ">{{ c.name }}</a></td>
+              <td>{{ c.company }}</td>
+              <td>{{ c.jobTitle }}</td>
+              <td><a href="mailto:{{c.email}}">{{ c.email }}</a></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  `,
+
+  controller: function(contactService){
+    this.contacts = null;
+    this.search = '';
+
+    this.searchContacts = function(search){
+      contactService.getContacts({search}).then(cs => this.contacts = cs);
+    };
+
+    this.searchContacts();
   }
-
-  searchContacts(search){
-    return contactService.getContacts({search})
-      .then(cs => cs.map((c) => {
-        c.mailto = c.email && `mailto:${c.email}`;
-
-        c.view = () => {
-          router.goTo('contacts-show', {id: c.id});
-        };
-
-        return c;
-      }))
-      .then(cs => this.contacts = cs);
-  }
-
-  get summaryText(){
-    return `${this.contacts.length} matches`;
-  }
-
-  new(){
-    return router.goTo('contacts-new');
-  }
-}
-
-ContactListingPage.tpl = [b.Div, {},
-  [b.Div, {cls: 'jumbotron'},
-    [b.Div, {cls: 'container-fluid clearfix'},
-      [b.Heading, {text: 'Contacts', cls: 'pull-left'}],
-
-      [b.Button, {text: 'New contact', onClick: '() new', cls: 'pull-right'}],
-    ]
-  ],
-
-  [b.Div, {cls: 'container-fluid'},
-    [b.Div, {cls: 'row lead'},
-      [b.Div, {cls: 'col-sm-8'},
-        [b.Span, {text: '= summaryText'}]
-      ],
-
-      [b.Div, {cls: 'col-sm-4'},
-        [b.TextField, {value: '', onValue: '() searchContacts', placeholder: 'Search...'}],
-      ]
-    ],
-
-    [b.DataGrid, {columns: '= columns', items: '= contacts'}]
-  ]
-];
-
-export default ContactListingPage;
+});
