@@ -71,7 +71,7 @@ angular.module('app').component('showContactPage', {
     </div>
   `,
 
-  controller: function(contactService){
+  controller: function(contactService, $rootRouter){
     this.contact = null;
 
     this.$routerOnActivate = function(next){
@@ -80,7 +80,7 @@ angular.module('app').component('showContactPage', {
 
     this.delete = function(){
       return contactService.deleteContact(this.contact.id).then(() => {
-        return this.$router.navigate(['ContactListingPage']);
+        return $rootRouter.navigate(['ContactListingPage']);
       });
     };
   }

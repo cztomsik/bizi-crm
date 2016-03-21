@@ -1,7 +1,8 @@
 import appModule from './app-module';
 
 import './home/home-page.js';
-// import './sign-in/sign-in-page.js';
+
+import './sign-in/sign-in-page.js';
 
 import './contacts/contact-service.js';
 import './contacts/contact-listing-page.js';
@@ -38,9 +39,9 @@ appModule.component('app', {
 
             <ul class="nav navbar-nav navbar-right">
               <li class="dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">John Doe <span class="caret"></span></a>
+                <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">John Doe <span class="caret"></span></a>
                 <ul class="dropdown-menu">
-                  <li><a href="#">Sign out</a></li>
+                  <li><a ng-click=" $ctrl.signOut() ">Sign out</a></li>
                 </ul>
               </li>
             </ul>
@@ -52,8 +53,15 @@ appModule.component('app', {
     </div>
   `,
 
+  controller: function($rootRouter){
+    this.signOut = function(){
+      $rootRouter.navigate(['SignInPage']);
+    };
+  },
+
   $routeConfig: [
     {name: 'HomePage', path: '/home', component: 'homePage', useAsDefault: true},
+    {name: 'SignInPage', path: '/sign-in', component: 'signInPage'},
     {name: 'ContactListingPage', path: '/contacts', component: 'contactListingPage'},
     {name: 'NewContactPage', path: '/contacts/new', component: 'newContactPage'},
     {name: 'ShowContactPage', path: '/contacts/:id', component: 'showContactPage'},

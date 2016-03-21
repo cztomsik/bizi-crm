@@ -21,7 +21,7 @@ angular.module('app').component('editContactPage', {
     </div>
   `,
 
-  controller: function(contactService){
+  controller: function(contactService, $rootRouter){
     this.contact = null;
 
     this.$routerOnActivate = function(next){
@@ -30,7 +30,7 @@ angular.module('app').component('editContactPage', {
 
     this.update = function(){
       return contactService.updateContact(this.contact).then((c) => {
-        return this.$router.navigate(['ShowContactPage', {id: c.id}]);
+        return $rootRouter.navigate(['ShowContactPage', {id: c.id}]);
       });
     };
   }

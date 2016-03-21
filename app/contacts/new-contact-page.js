@@ -18,7 +18,7 @@ angular.module('app').component('newContactPage', {
     </div>
   `,
 
-  controller: function(contactService){
+  controller: function(contactService, $rootRouter){
     this.contact = {
       name: null,
       company: null,
@@ -31,7 +31,7 @@ angular.module('app').component('newContactPage', {
 
     this.create = function(){
       return contactService.createContact(this.contact).then((c) => {
-        return this.$router.navigate(['ShowContactPage', {id: c.id}]);
+        return $rootRouter.navigate(['ShowContactPage', {id: c.id}]);
       });
     };
   }
