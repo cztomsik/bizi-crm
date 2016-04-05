@@ -6,41 +6,41 @@ angular.module('app').component('contactForm', {
   },
 
   template: `
-    <div>
-      <div class="form-group">
+    <b-form>
+      <b-form-group>
         <label>Name</label>
-        <input class="form-control" ng-model=" $ctrl.contact.name ">
-      </div>
+        <b-input ng-model=" $ctrl.contact.name " />
+      </b-form-group>
 
-      <div class="form-group">
+      <b-form-group>
         <label>Company</label>
-        <input class="form-control" ng-model=" $ctrl.contact.company ">
-      </div>
+        <b-input ng-model=" $ctrl.contact.company " />
+      </b-form-group>
 
-      <div class="form-group">
+      <b-form-group>
         <label>Job Title</label>
-        <input class="form-control" ng-model=" $ctrl.contact.jobTitle ">
-      </div>
+        <b-input ng-model=" $ctrl.contact.jobTitle " />
+      </b-form-group>
 
-      <div class="form-group">
+      <b-form-group>
         <label>Phone</label>
-        <input class="form-control" ng-model=" $ctrl.contact.phone ">
-      </div>
+        <b-input ng-model=" $ctrl.contact.phone " />
+      </b-form-group>
 
-      <div class="form-group">
+      <b-form-group>
         <label>Email</label>
-        <input class="form-control" ng-model=" $ctrl.contact.email ">
-      </div>
+        <b-input ng-model=" $ctrl.contact.email " />
+      </b-form-group>
 
-      <div class="form-group">
+      <b-form-group>
         <label>Address</label>
-        <textarea class="form-control" ng-model=" $ctrl.contact.address "></textarea>
-      </div>
+        <b-textarea ng-model=" $ctrl.contact.address "></b-textarea>
+      </b-form-group>
 
-      <div class="form-group">
+      <b-form-group>
         <label>Note</label>
-        <textarea class="form-control" ng-model=" $ctrl.contact.note "></textarea>
-      </div>
-    </div>
+        <b-textarea ng-model=" $ctrl.contact.note "></b-textarea>
+      </b-form-group>
+    </b-form>
   `
 });

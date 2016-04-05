@@ -2,73 +2,75 @@ import angular from 'angular';
 
 angular.module('app').component('showContactPage', {
   template: `
-    <div>
-      <div class="jumbotron">
-        <div class="container-fluid">
-          <div class="btn-group pull-right">
-            <button class="btn btn-default" ng-link=" ['EditContactPage', {id: $ctrl.contact.id}] ">Edit</button>
+    <b-page>
+      <b-jumbotron>
+        <b-container>
+          <b-button-group class="pull-right">
+            <b-button text="Edit" ng-click=" $ctrl.edit() "></b-button>
             <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              More <span class="caret"></span>
+              <span class="caret"></span>
             </button>
             <ul class="dropdown-menu">
+              <li><a ng-click=" $ctrl.clone() ">Clone</a></li>
+              <li role="separator" class="divider"></li>
               <li><a ng-click=" $ctrl.delete() ">Delete</a></li>
             </ul>
-          </div>
+          </b-button-group>
 
           <div class="media">
             <div class="media-left">
-              <img src="//lorempixel.com/48/48/">
+              <img src="//dummyimage.com/48x48/000/fff/">
             </div>
             <div class="media-body">
               <h3 class="media-heading">{{ $ctrl.contact.name }}</h3>
               {{ $ctrl.contact.company }}
             </div>
           </div>
-        </div>
-      </div>
+        </b-container>
+      </b-jumbotron>
 
-      <div class="container-fluid">
+      <b-container>
         <div class="row">
           <div class="col-sm-5">
-            <div class="form-group">
+            <b-form-group>
               <label>Name</label>
               <p class="form-control-static">{{ $ctrl.contact.name }}</p>
-            </div>
+            </b-form-group>
 
-            <div class="form-group">
+            <b-form-group>
               <label>Company</label>
               <p class="form-control-static">{{ $ctrl.contact.company }}</p>
-            </div>
+            </b-form-group>
 
-            <div class="form-group">
+            <b-form-group>
               <label>Job Title</label>
               <p class="form-control-static">{{ $ctrl.contact.jobTitle }}</p>
-            </div>
+            </b-form-group>
 
-            <div class="form-group">
+            <b-form-group>
               <label>Phone</label>
               <p class="form-control-static">{{ $ctrl.contact.phone }}</p>
-            </div>
+            </b-form-group>
 
-            <div class="form-group">
+            <b-form-group>
               <label>Email</label>
               <p class="form-control-static">{{ $ctrl.contact.email }}</p>
-            </div>
+            </b-form-group>
           </div>
           <div class="col-sm-7">
-            <div class="form-group">
+            <b-form-group>
               <label>Address</label>
               <p class="form-control-static">{{ $ctrl.contact.address }}</p>
-            </div>
+            </b-form-group>
 
-            <div class="form-group">
+            <b-form-group>
               <label>Note</label>
-              <p class="form-control-static">{{ contact.note }}</p>
-            </div>
+              <p class="form-control-static">{{ $ctrl.contact.note }}</p>
+            </b-form-group>
           </div>
         </div>
-      </div>
-    </div>
+      </b-container>
+    </b-page>
   `,
 
   controller: function(contactService, $rootRouter){
@@ -76,6 +78,14 @@ angular.module('app').component('showContactPage', {
 
     this.$routerOnActivate = function(next){
       contactService.getContact(next.params.id).then(c => this.contact = c);
+    };
+
+    this.edit = function(){
+      return $rootRouter.navigate(['EditContactPage', {id: this.contact.id}]);
+    };
+
+    this.clone = function(){
+      window.alert('TODO');
     };
 
     this.delete = function(){

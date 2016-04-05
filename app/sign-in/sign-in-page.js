@@ -2,31 +2,31 @@ import angular from 'angular';
 
 angular.module('app').component('signInPage', {
   template: `
-    <div>
-      <div class="jumbotron">
-        <div class="container-fluid">
+    <b-page>
+      <b-jumbotron>
+        <b-container>
           <h3>Sign in</h3>
-        </div>
-      </div>
+        </b-container>
+      </b-jumbotron>
 
-      <div class="container-fluid">
-        <div class="alert alert-danger" ng-show=" $ctrl.error ">
+      <b-container>
+        <b-alert ng-show=" $ctrl.error ">
           {{ $ctrl.error }}
-        </div>
+        </b-alert>
 
-        <div class="form-group">
+        <b-form-group>
           <label>Username</label>
-          <input class="form-control" ng-model=" $ctrl.username ">
-        </div>
+          <b-input ng-model=" $ctrl.username " />
+        </b-form-group>
 
-        <div class="form-group">
+        <b-form-group>
           <label>Password</label>
           <input type="password" class="form-control" ng-model=" $ctrl.password ">
-        </div>
+        </b-form-group>
 
-        <button class="btn btn-default" ng-click=" $ctrl.signIn() ">Sign in</button>
-      </div>
-    </div>
+        <b-button text="Sign in" ng-click=" $ctrl.signIn() "></b-button>
+      </b-container>
+    </b-page>
   `,
 
   controller: function($rootRouter){

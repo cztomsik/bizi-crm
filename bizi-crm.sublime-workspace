@@ -4,6 +4,18 @@
 		"selected_items":
 		[
 			[
+				"app",
+				"appModule"
+			],
+			[
+				"sign",
+				"signOut"
+			],
+			[
+				"aler",
+				"alert-danger"
+			],
+			[
 				"patch",
 				"patchExport"
 			],
@@ -484,10 +496,6 @@
 				"prevBtnOnClick"
 			],
 			[
-				"app",
-				"appPanel"
-			],
-			[
 				"contac",
 				"contactForm"
 			],
@@ -506,19 +514,35 @@
 			[
 				"file",
 				"fileName"
-			],
-			[
-				"is",
-				"isXyz"
-			],
-			[
-				"state",
-				"stateParams"
 			]
 		]
 	},
 	"buffers":
 	[
+		{
+			"file": "/Users/cztomsik/Desktop/bizi.md",
+			"settings":
+			{
+				"buffer_size": 5137,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "/Users/cztomsik/Desktop/bizi/src/navbar.js",
+			"settings":
+			{
+				"buffer_size": 1650,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "app/index.js",
+			"settings":
+			{
+				"buffer_size": 2034,
+				"line_ending": "Unix"
+			}
+		}
 	],
 	"build_system": "",
 	"build_system_choices":
@@ -527,10 +551,18 @@
 	"build_varint": "",
 	"command_palette":
 	{
-		"height": 305.0,
-		"last_filter": "jaa",
+		"height": 203.0,
+		"last_filter": "javas",
 		"selected_items":
 		[
+			[
+				"javas",
+				"Set Syntax: JavaScript"
+			],
+			[
+				"t",
+				"Toggle Comment"
+			],
 			[
 				"jaa",
 				"Set Syntax: JavaScript"
@@ -650,10 +682,6 @@
 			[
 				"xml",
 				"Set Syntax: XML"
-			],
-			[
-				"javas",
-				"Set Syntax: JavaScript"
 			],
 			[
 				"instal",
@@ -1038,10 +1066,6 @@
 			[
 				"ngEle",
 				"Set Syntax: Regular Expression"
-			],
-			[
-				"jslin",
-				"JSHint: Set Plugin Options"
 			]
 		],
 		"width": 493.0
@@ -1069,45 +1093,51 @@
 	[
 		"/Users/cztomsik/Desktop/bizi-crm",
 		"/Users/cztomsik/Desktop/bizi-crm/app",
+		"/Users/cztomsik/Desktop/bizi-crm/app/contacts",
+		"/Users/cztomsik/Desktop/bizi-crm/app/home",
 		"/Users/cztomsik/Desktop/bizi-crm/app/sign-in",
 		"/Users/cztomsik/Desktop/bizi-crm/public",
 		"/Users/cztomsik/Desktop/bizi-crm/node_modules/bizi",
+		"/Users/cztomsik/Desktop/bizi-crm/node_modules/bizi/src",
 		"/Users/cztomsik/Desktop/bizi-crm/node_modules/rur",
 		"/Users/cztomsik/Desktop/bizi-crm/node_modules/hot-monkey"
 	],
 	"file_history":
 	[
+		"/Users/cztomsik/Desktop/bizi-crm/node_modules/bizi/src/index.js",
+		"/Users/cztomsik/Desktop/bizi-crm/node_modules/bizi/src/button.js",
+		"/Users/cztomsik/Desktop/bizi-final/app/bizi.js",
+		"/Users/cztomsik/Desktop/bizi/src/button.js",
+		"/Users/cztomsik/Desktop/bizi-crm/node_modules/bizi/src/component.js",
 		"/Users/cztomsik/Desktop/bizi-crm/app/index.js",
+		"/Users/cztomsik/Desktop/bizi-crm/app/sign-in/sign-in-page.js",
+		"/Users/cztomsik/Desktop/bizi-crm/app/contacts/new-contact-page.js",
+		"/Users/cztomsik/Desktop/bizi-crm/app/contacts/edit-contact-page.js",
+		"/Users/cztomsik/Desktop/bizi-crm/app/contacts/show-contact-page.js",
 		"/Users/cztomsik/Desktop/bizi-crm/public/index.html",
 		"/Users/cztomsik/Desktop/bizi-crm/package.json",
 		"/Users/cztomsik/Desktop/bizi-crm/.gitignore",
-		"/Users/cztomsik/Desktop/bizi-crm/app/contacts/show-contact-page.js",
 		"/Users/cztomsik/Desktop/bizi-crm/app/crm-app.js",
 		"/Users/cztomsik/Desktop/bizi.md",
 		"/Users/cztomsik/Desktop/bizi-crm/app/counter.js",
 		"/Users/cztomsik/Desktop/bizi-crm/node_modules/hot-monkey/index.js",
 		"/Users/cztomsik/Desktop/bizi-crm/node_modules/bizi/src/view.js",
-		"/Users/cztomsik/Desktop/bizi-crm/node_modules/bizi/src/component.js",
 		"/Users/cztomsik/Desktop/bizi-crm/node_modules/rur/node_modules/mocha/node_modules/debug/bower.json",
-		"/Users/cztomsik/Desktop/bizi-crm/app/contacts/edit-contact-page.js",
 		"/Users/cztomsik/Desktop/bizi-crm/bizi-crm.sublime-project",
 		"/Users/cztomsik/Desktop/bizi/src/dropdown-menu.js",
 		"/Users/cztomsik/Desktop/bizi-crm/app/home/home-page.js",
 		"/Users/cztomsik/Desktop/bizi-crm/app/contacts/contact-listing-page.js",
 		"/Users/cztomsik/Library/Application Support/Sublime Text 3/Packages/Minify/Minify.sublime-settings",
-		"/Users/cztomsik/Desktop/bizi-crm/node_modules/bizi/src/index.js",
 		"/Users/cztomsik/Desktop/bizi-crm/node_modules/rur/package.json",
 		"/Users/cztomsik/Desktop/bizi-crm/node_modules/bizi/src/label.js",
 		"/Users/cztomsik/Desktop/bizi-crm/node_modules/bizi/src/_css.js",
 		"/Users/cztomsik/Desktop/bizi-crm/node_modules/bizi/src/data-grid.js",
-		"/Users/cztomsik/Desktop/bizi-crm/app/sign-in/sign-in-page.js",
 		"/Users/cztomsik/Desktop/bizi-crm/app/contacts/_contact-form.js",
 		"/Users/cztomsik/Desktop/bizi-crm/node_modules/bizi/src/form-group.js",
 		"/Users/cztomsik/Desktop/bizi/src/form-group.js",
 		"/Users/cztomsik/Desktop/bizi-crm/node_modules/bizi/src/text-area.js",
 		"/Users/cztomsik/Desktop/bizi-crm/node_modules/bizi/src/text-field.js",
 		"/Users/cztomsik/Desktop/bizi-crm/node_modules/bizi/src/well.js",
-		"/Users/cztomsik/Desktop/bizi-crm/node_modules/bizi/src/button.js",
 		"/Users/cztomsik/Desktop/bizi-crm/node_modules/bizi/src/button-group.js",
 		"/Users/cztomsik/Desktop/bizi-crm/node_modules/bizi/src/panel.js",
 		"/Users/cztomsik/Desktop/bizi-crm/node_modules/bizi/src/panel-body.js",
@@ -1201,10 +1231,7 @@
 		"/Users/cztomsik/Desktop/ams-source/ams-frontend/ams-frontend-common/gui/app/scripts/layout/ams-navigation.js",
 		"/Users/cztomsik/Desktop/ams-source/ams-frontend/ams-frontend-common/gui/app/scripts/layout/layout.controller.js",
 		"/Users/cztomsik/Desktop/ams-source/ams-frontend/ams-frontend-common/gui/app/scripts/tree-grid-table/tree-grid-table.js",
-		"/Users/cztomsik/Desktop/ams-source/ams-frontend/ams-frontend-common/gui/app/scripts/tree-grid-table/grid-status-dot/grid-status-dot.js",
-		"/Users/cztomsik/Desktop/ams-source/ams-frontend/ams-frontend-common/gui/app/scripts/tree-grid-table/templates/disc/row-dsc-group.html",
-		"/Users/cztomsik/Desktop/ams-source/ams-frontend/ams-frontend-common/gui/app/scripts/tree-grid-table/templates/disc/row-dsc-peer.html",
-		"/Users/cztomsik/Desktop/ams-source/ams-frontend/ams-frontend-common/gui/app/scripts/tree-grid-table/templates/sip/row-dsc-sip-destination.html"
+		"/Users/cztomsik/Desktop/ams-source/ams-frontend/ams-frontend-common/gui/app/scripts/tree-grid-table/grid-status-dot/grid-status-dot.js"
 	],
 	"find":
 	{
@@ -1215,6 +1242,7 @@
 		"height": 93.0,
 		"where_history":
 		[
+			"app/*",
 			"src/*",
 			"scripts/*",
 			"",
@@ -1341,8 +1369,7 @@
 			"*",
 			"*.css",
 			"*",
-			"*.css,*.scss",
-			"*"
+			"*.css,*.scss"
 		]
 	},
 	"find_state":
@@ -1350,6 +1377,11 @@
 		"case_sensitive": true,
 		"find_history":
 		[
+			"el",
+			"bizi",
+			"navigate",
+			"this.$router",
+			"ng-model=\"",
 			"parents",
 			"parent",
 			"webpack",
@@ -1472,12 +1504,7 @@
 			"ams",
 			"gridster",
 			"_       \"",
-			"amsChartOptionsService",
-			"amsChartSchemes",
-			"barchart",
-			"amsSliderService",
-			"httpErrorHandlerService",
-			"dataStructureHelper"
+			"amsChartOptionsService"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -1543,8 +1570,103 @@
 	"groups":
 	[
 		{
+			"selected": 0,
 			"sheets":
 			[
+				{
+					"buffer": 0,
+					"file": "/Users/cztomsik/Desktop/bizi.md",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 5137,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								781,
+								781
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Text/Plain text.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 1098.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "/Users/cztomsik/Desktop/bizi/src/navbar.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1650,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								147,
+								147
+							]
+						],
+						"settings":
+						{
+							"editorconfig": true,
+							"ensure_newline_at_eof_on_save": true,
+							"syntax": "Packages/JavaScript/JavaScript.sublime-syntax",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true,
+							"trim_trailing_white_space_on_save": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 23.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 2,
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "app/index.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 2034,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								647,
+								647
+							]
+						],
+						"settings":
+						{
+							"editorconfig": true,
+							"ensure_newline_at_eof_on_save": true,
+							"syntax": "Packages/JavaScript/JavaScript.sublime-syntax",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true,
+							"trim_trailing_white_space_on_save": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 516.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
+					"type": "text"
+				}
 			]
 		}
 	],
@@ -1609,6 +1731,18 @@
 		"selected_items":
 		[
 			[
+				"sign-in",
+				"bizi-crm/app/sign-in/sign-in-page.js"
+			],
+			[
+				"edit-cn",
+				"bizi-crm/app/contacts/edit-contact-page.js"
+			],
+			[
+				"show-co",
+				"bizi-crm/app/contacts/show-contact-page.js"
+			],
+			[
 				"bower",
 				"rur/node_modules/mocha/node_modules/debug/bower.json"
 			],
@@ -1663,10 +1797,6 @@
 			[
 				"label",
 				"node_modules/bizi/src/label.js"
-			],
-			[
-				"sign-in",
-				"app/sign-in/sign-in-page.js"
 			],
 			[
 				"show-",
@@ -2111,14 +2241,6 @@
 			[
 				"chart-control-test",
 				"ams-frontend/ams-frontend-common/gui/test/spec/controllers/chart-edit.controller-test.js"
-			],
-			[
-				"charteditcon",
-				"ams-frontend/ams-frontend-common/gui/app/scripts/ams/widgets/chart/chart-edit.controller.js"
-			],
-			[
-				"chartservice",
-				"ams-frontend/ams-frontend-common/gui/test/spec/service/ChartService-test.js"
 			]
 		],
 		"width": 0.0

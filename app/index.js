@@ -1,53 +1,41 @@
+import * as b from 'bizi';
 import appModule from './app-module';
-
 import './home/home-page.js';
-
 import './sign-in/sign-in-page.js';
-
 import './contacts/contact-service.js';
 import './contacts/contact-listing-page.js';
 import './contacts/show-contact-page.js';
 import './contacts/new-contact-page.js';
 import './contacts/edit-contact-page.js';
 
+
 appModule.value('$routerRootComponent', 'app');
-
-
 
 appModule.component('app', {
   template: `
     <div class="app">
-      <nav class="navbar navbar-default">
-        <div class="container-fluid">
-          <!-- Brand and toggle get grouped for better mobile display -->
-          <div class="navbar-header">
-            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-              <span class="sr-only">Toggle navigation</span>
-              <span class="icon-bar"></span>
-              <span class="icon-bar"></span>
-              <span class="icon-bar"></span>
-            </button>
-            <a class="navbar-brand" href=".">Bizi CRM</a>
-          </div>
+      <b-navbar class="navbar-inverse">
+        <b-nav class="navbar-nav">
+          <li><a ng-link=" ['HomePage'] ">Home</a></li>
+          <li><a ng-link=" ['ContactListingPage'] ">Contacts</a></li>
+        </b-nav>
 
-          <!-- Collect the nav links, forms, and other content for toggling -->
-          <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-            <ul class="nav navbar-nav">
-              <li class="active"><a ng-link=" ['HomePage'] ">Home <span class="sr-only">(current)</span></a></li>
-              <li><a ng-link=" ['ContactListingPage'] ">Contacts</a></li>
+        <b-nav class="navbar-nav navbar-right">
+          <li class="dropdown">
+            <a href="" data-toggle="dropdown">John Doe <i class="caret"></i></a>
+            <ul class="dropdown-menu">
+              <li><a ng-link=" ['SignInPage'] ">Sign out...</a></li>
             </ul>
+          </li>
+        </b-nav>
+      </b-navbar>
 
-            <ul class="nav navbar-nav navbar-right">
-              <li class="dropdown">
-                <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">John Doe <span class="caret"></span></a>
-                <ul class="dropdown-menu">
-                  <li><a ng-click=" $ctrl.signOut() ">Sign out</a></li>
-                </ul>
-              </li>
-            </ul>
-          </div><!-- /.navbar-collapse -->
-        </div><!-- /.container-fluid -->
-      </nav>
+      <b-sidebar ng-show>
+        <b-nav>
+          <li><a ng-link=" ['HomePage'] ">Home</a></li>
+          <li><a ng-link=" ['ContactListingPage'] ">Contacts</a></li>
+        </b-nav>
+      </b-sidebar>
 
       <ng-outlet>
     </div>
@@ -67,4 +55,86 @@ appModule.component('app', {
     {name: 'ShowContactPage', path: '/contacts/:id', component: 'showContactPage'},
     {name: 'EditContactPage', path: '/contacts/:id/edit', component: 'editContactPage'}
   ]
+});
+
+
+const $ = window.$;
+
+Object.keys(b).forEach((k) => {
+  const Comp = b[k];
+  const pluginName = 'b' + Comp.name;
+
+  $.fn[pluginName] = function(options){
+    return this.map(function(i, el){
+      const $el = $(el);
+      //const $contents = $el.contents();
+      let comp = $el.data(pluginName);
+
+      if (comp){
+        comp.set(options);
+        return el;
+      }
+
+      comp = new Comp(options);
+
+      // TODO: ew
+      //$(comp.domNode).find('content').replaceWith($contents);
+
+      $el.replaceWith(comp.domNode);
+
+      return $(comp.domNode).data(pluginName, comp)[0];
+    });
+  };
+});
+
+Object.keys(b).forEach((k) => {
+  const Comp = b[k];
+  const pluginName = 'b' + Comp.name;
+
+  appModule.directive(pluginName, function($compile){
+    return {
+      restrict: 'E',
+      priority: 599.9,
+      compile: function($el, attrs){
+        return {
+          pre: function($scope, $el, attrs){
+            const ngModel = $el.data('$ngModelController');
+            const hostEl = $el[0];
+            const options = {};
+
+            // support text attributes
+            for (let k in attrs){
+              options[k] = attrs[k];
+            }
+
+            // TODO: map attributes
+            options.className = options.class;
+
+            if (ngModel){
+              ngModel.$render = () => {
+                $el[pluginName]({value: ngModel.$modelValue});
+              };
+
+              options.onValue = (e) => {
+                ngModel.$setViewValue(e.target.value, e);
+              };
+            }
+
+            // TODO: one-way bound attrs (datagrid items)
+
+            const compNode = $el[pluginName](options)[0];
+            compNode.host = hostEl;
+
+            $el[0] = compNode;
+          },
+
+          post: function($scope, $el, attrs){
+            $el.find('content').replaceWith($($el[0].host).contents());
+            //const $contents = $el.contents();
+            //$(comp.domNode).find('content').replaceWith($contents);
+          }
+        };
+      }
+    };
+  });
 });

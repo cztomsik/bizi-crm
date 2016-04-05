@@ -2,20 +2,20 @@ import angular from 'angular';
 
 angular.module('app').component('contactListingPage', {
   template: `
-    <div>
-      <div class="jumbotron">
-        <div class="container-fluid clearfix">
+    <b-page>
+      <b-jumbotron>
+        <b-container class="clearfix">
           <h3 class="pull-left">Contacts</h3>
 
           <a class="btn btn-default pull-right" ng-link=" ['NewContactPage'] ">New contact</a>
-        </div>
-      </div>
+        </b-container>
+      </b-jumbotron>
 
-      <div class="container-fluid">
+      <b-container>
         <div class="row lead">
           <div class="col-sm-4"></div>
           <div class="col-sm-4">
-            <input placeholder="Search" ng-model="$ctrl.search" class="form-control" ng-change=" $ctrl.searchContacts($ctrl.search) ">
+            <b-input placeholder="Search" ng-model="$ctrl.search" ng-change=" $ctrl.searchContacts($ctrl.search) " />
           </div>
         </div>
 
@@ -37,8 +37,8 @@ angular.module('app').component('contactListingPage', {
             </tr>
           </tbody>
         </table>
-      </div>
-    </div>
+      </b-container>
+    </b-page>
   `,
 
   controller: function(contactService){

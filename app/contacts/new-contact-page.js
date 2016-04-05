@@ -3,19 +3,19 @@ import './_contact-form';
 
 angular.module('app').component('newContactPage', {
   template: `
-    <div>
-      <div class="jumbotron">
-        <div class="container-fluid">
+    <b-page>
+      <b-jumbotron>
+        <b-container>
           <h3>New contact</h3>
-        </div>
-      </div>
+        </b-container>
+      </b-jumbotron>
 
-      <div class="container-fluid">
+      <b-container>
         <contact-form contact=" $ctrl.contact "></contact-form>
 
-        <button class="btn btn-primary" ng-click=" $ctrl.create() ">Create</button>
-      </div>
-    </div>
+        <b-button text="Create" ng-click=" $ctrl.create() "></b-button>
+      </b-container>
+    </b-page>
   `,
 
   controller: function(contactService, $rootRouter){

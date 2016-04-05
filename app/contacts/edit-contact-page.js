@@ -3,22 +3,22 @@ import './_contact-form';
 
 angular.module('app').component('editContactPage', {
   template: `
-    <div>
-      <div class="jumbotron">
-        <div class="container-fluid">
+    <b-page>
+      <b-jumbotron>
+        <b-container>
           <h3>
             Edit contact<br>
             <small>{{ $ctrl.contact.name }}</small>
           </h3>
-        </div>
-      </div>
+        </b-container>
+      </b-jumbotron>
 
-      <div class="container-fluid">
+      <b-container>
         <contact-form contact=" $ctrl.contact "></contact-form>
 
-        <button class="btn btn-primary" ng-click=" $ctrl.update() ">Update</button>
-      </div>
-    </div>
+        <b-button text="Update" ng-click=" $ctrl.update() "></b-button>
+      </b-container>
+    </b-page>
   `,
 
   controller: function(contactService, $rootRouter){

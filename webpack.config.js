@@ -12,7 +12,7 @@ module.exports = {
   plugins: [
     new webpack.optimize.CommonsChunkPlugin('vendor', 'vendor.js')
   ],
-  devTool: 'eval',
+  devtool: 'eval',
   devServer: {
     inline: true,
     contentBase: __dirname + '/public',
