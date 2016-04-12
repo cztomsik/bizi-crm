@@ -1,12 +1,12 @@
 'use strict';
 
-var _ = require('lodash');
-var contacts = require('./_contacts');
-var lastId = contacts[contacts.length - 1].id;
+const db = require('./db');
+
 
 module.exports = {
   getContacts: function(query){
-    if ( ! query.search){
+    return db.getContacts();
+    /*if ( ! query.search){
       return contacts;
     }
 
@@ -24,28 +24,22 @@ module.exports = {
       }
 
       return false;
-    });
+    });*/
   },
 
   getContact: function(params){
-    return _.find(contacts, {id: +params.id});
+    return db.find('contacts', {id: +params.id});
   },
 
   createContact: function(data){
-    var c = _.assign({id: ++lastId}, data);
-
-    contacts.push(c);
-    return c;
+    return db.create('posts', data);
   },
 
   updateContact: function(data){
-    var c = this.getContact({id: data.id});
-
-    _.assign(c, data);
-    return c;
+    return db.update('contacts', this.getContact({id: data.id}), data);
   },
 
   deleteContact: function(params){
-    contacts = _.without(contacts, this.getContact(params));
+    return db.delete('contacts', params);
   }
 };

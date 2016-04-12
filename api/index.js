@@ -1,11 +1,13 @@
-var express = require('express');
-var bodyParser = require('body-parser');
-var contactService = require('./contact-service');
+'use strict';
 
-var api = express();
+const express = require('express');
+const bodyParser = require('body-parser');
+const contactService = require('./contact-service');
+
+const api = express();
 module.exports = api;
 
-var parseJson = bodyParser.json();
+const parseJson = bodyParser.json();
 
 // transaction boundary
 // api.use(...)

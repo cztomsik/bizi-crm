@@ -30,7 +30,7 @@ appModule.component('app', {
         </b-nav>
       </b-navbar>
 
-      <b-sidebar ng-show>
+      <b-sidebar ng-if>
         <b-nav>
           <li><a ng-link=" ['HomePage'] ">Home</a></li>
           <li><a ng-link=" ['ContactListingPage'] ">Contacts</a></li>
@@ -57,33 +57,74 @@ appModule.component('app', {
   ]
 });
 
+appModule.directive('panes', ($compile, $timeout) => {
+  return {
+    restrict: 'E',
+    // ng-repeat/ng-if is not required here
+    priority: Number.MAX_VALUE,
+    terminal: true,
+    scope: true,
+    compile: () => {
+      return ($scope, $el) => {
+        const $tabsEl = $el.parent();
 
-const $ = window.$;
+        $compile($el.children())($scope);
 
-Object.keys(b).forEach((k) => {
-  const Comp = b[k];
-  const pluginName = 'b' + Comp.name;
+        update();
 
-  $.fn[pluginName] = function(options){
-    return this.map(function(i, el){
-      const $el = $(el);
-      //const $contents = $el.contents();
-      let comp = $el.data(pluginName);
+        $scope.$on('pane', update);
+        $el.remove();
 
-      if (comp){
-        comp.set(options);
-        return el;
-      }
+        function update(){
+          const panes = $el.children().get().map((el) => {
+            return el.pane;
+          });
 
-      comp = new Comp(options);
+          // at this point, instance is not linked
+          $timeout(() => {
+            if ($tabsEl[0].instance){
+              $tabsEl[0].instance.set({panes});
+            }
+          });
 
-      // TODO: ew
-      //$(comp.domNode).find('content').replaceWith($contents);
+          //console.log(panes);
+        }
+      };
+    }
+  };
+});
 
-      $el.replaceWith(comp.domNode);
+appModule.directive('pane', () => {
+  return {
+    restrict: 'E',
+    link: function($scope, $el, attrs){
+      const pane = {
+        header: attrs.header,
+        contents: $el.contents()
+      };
 
-      return $(comp.domNode).data(pluginName, comp)[0];
-    });
+      $el[0].pane = pane;
+
+      console.log('+pane');
+      $scope.$emit('pane');
+
+      $scope.$on('$destroy', () => {
+        console.log('-pane');
+        $scope.$emit('pane');
+      });
+    }
+  };
+});
+
+// ngRepeat does not expect us to replace elements with entirely different nodes so it will try to "reorder"
+// all repeated "blocks" - to do so it will call $animate.move()
+//
+// this hack is our only chance to prevent the mess it would do in DOM.
+appModule.run(($animate) => {
+  const animateMove = $animate.move;
+
+  $animate.move = (element, parent, after, options) => {
+    return animateMove((element && element[0].shadow) || element, parent, after, options);
   };
 });
 
@@ -91,49 +132,73 @@ Object.keys(b).forEach((k) => {
   const Comp = b[k];
   const pluginName = 'b' + Comp.name;
 
-  appModule.directive(pluginName, function($compile){
+  appModule.directive(pluginName, () => {
     return {
       restrict: 'E',
-      priority: 599.9,
-      compile: function($el, attrs){
-        return {
-          pre: function($scope, $el, attrs){
-            const ngModel = $el.data('$ngModelController');
-            const hostEl = $el[0];
-            const options = {};
-
-            // support text attributes
-            for (let k in attrs){
-              options[k] = attrs[k];
-            }
-
-            // TODO: map attributes
-            options.className = options.class;
-
-            if (ngModel){
-              ngModel.$render = () => {
-                $el[pluginName]({value: ngModel.$modelValue});
-              };
-
-              options.onValue = (e) => {
-                ngModel.$setViewValue(e.target.value, e);
-              };
-            }
-
-            // TODO: one-way bound attrs (datagrid items)
-
-            const compNode = $el[pluginName](options)[0];
-            compNode.host = hostEl;
-
-            $el[0] = compNode;
-          },
-
-          post: function($scope, $el, attrs){
-            $el.find('content').replaceWith($($el[0].host).contents());
-            //const $contents = $el.contents();
-            //$(comp.domNode).find('content').replaceWith($contents);
-          }
+      link: ($scope, $el, attrs) => {
+        const $$observers = attrs.$$observers || attrs.$observers;
+        const ngModel = attrs.ngModel && $el.data('$ngModelController');
+        const options = {
+          contents: $el.contents().get()
         };
+
+        let instance;
+
+        for (let k in attrs.$attr){
+          if (k.startsWith('$')){
+            bind(k.slice(1), attrs[k]);
+            continue;
+          }
+
+          options[k] = attrs[k];
+        }
+
+
+        // TODO: attr => prop mapping
+        options.className = options.class;
+        delete options.class;
+
+        if (ngModel){
+          options.onValue = (e) => {
+            ngModel.$setViewValue(e.target.value);
+          };
+        }
+
+        instance = new Comp(options);
+
+        $el[0].instance = instance;
+
+        if ($$observers){
+          Object.keys($$observers).forEach((k) => {
+            attrs.$observe(k, (v) => {
+              instance.set({[k]: v});
+            });
+          });
+        }
+
+        if (ngModel){
+          ngModel.$render = () => {
+            instance.set({value: ngModel.$modelValue});
+          };
+        }
+
+        $el.on('$destroy', () => {
+          instance.el.parentNode.removeChild(instance.el);
+        });
+
+        $el[0].parentNode.replaceChild(instance.el, $el[0]);
+
+        // see hack above
+        $el[0].shadow = instance.el;
+
+
+        function bind(propName, expression){
+          options[propName] = $scope.$eval(expression);
+
+          $scope.$watch(expression, (v) => {
+            instance.set({[propName]: v});
+          });
+        }
       }
     };
   });

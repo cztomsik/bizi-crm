@@ -19,6 +19,17 @@ angular.module('app').component('contactListingPage', {
           </div>
         </div>
 
+        <b-data-table
+          $columns=" [
+            {header: 'Name'},
+            {header: 'Company'},
+            {header: 'Job Title'},
+            {header: 'Email'}
+          ] "
+
+          $items="$ctrl.contacts"
+        />
+
         <table class="table table-bordered">
           <thead>
             <tr>
