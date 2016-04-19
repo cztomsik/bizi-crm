@@ -15,26 +15,26 @@ appModule.component('app', {
   template: `
     <div class="app">
       <b-navbar class="navbar-inverse">
-        <b-nav class="navbar-nav">
+        <b-wrapper class="nav navbar-nav">
           <li><a ng-link=" ['HomePage'] ">Home</a></li>
           <li><a ng-link=" ['ContactListingPage'] ">Contacts</a></li>
-        </b-nav>
+        </b-wrapper>
 
-        <b-nav class="navbar-nav navbar-right">
+        <b-wrapper class="nav navbar-nav navbar-right">
           <li class="dropdown">
             <a href="" data-toggle="dropdown">John Doe <i class="caret"></i></a>
             <ul class="dropdown-menu">
               <li><a ng-link=" ['SignInPage'] ">Sign out...</a></li>
             </ul>
           </li>
-        </b-nav>
+        </b-wrapper>
       </b-navbar>
 
       <b-sidebar ng-if>
-        <b-nav>
+        <b-wrapper class="nav">
           <li><a ng-link=" ['HomePage'] ">Home</a></li>
           <li><a ng-link=" ['ContactListingPage'] ">Contacts</a></li>
-        </b-nav>
+        </b-wrapper>
       </b-sidebar>
 
       <ng-outlet>

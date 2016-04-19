@@ -5,7 +5,7 @@ angular.module('app').component('showContactPage', {
     <b-page>
       <b-jumbotron>
         <b-container>
-          <b-button-group class="pull-right">
+          <div class="btn-group pull-right">
             <b-button text="Edit" ng-click=" $ctrl.edit() "></b-button>
             <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               <span class="caret"></span>
@@ -15,7 +15,7 @@ angular.module('app').component('showContactPage', {
               <li role="separator" class="divider"></li>
               <li><a ng-click=" $ctrl.delete() ">Delete</a></li>
             </ul>
-          </b-button-group>
+          </div>
 
           <div class="media">
             <div class="media-left">
