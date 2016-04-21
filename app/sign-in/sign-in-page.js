@@ -3,29 +3,23 @@ import angular from 'angular';
 angular.module('app').component('signInPage', {
   template: `
     <b-page>
-      <b-jumbotron>
-        <b-container>
-          <h3>Sign in</h3>
-        </b-container>
-      </b-jumbotron>
+      <h3>Sign in</h3>
 
-      <b-container>
-        <b-alert ng-show=" $ctrl.error ">
-          {{ $ctrl.error }}
-        </b-alert>
+      <div class="alert alert-danger" ng-show=" $ctrl.error ">
+        {{ $ctrl.error }}
+      </div>
 
-        <b-form-group>
-          <label>Username</label>
-          <b-input ng-model=" $ctrl.username " />
-        </b-form-group>
+      <div class="form-group">
+        <label>Username</label>
+        <b-input ng-model=" $ctrl.username " />
+      </div>
 
-        <b-form-group>
-          <label>Password</label>
-          <input type="password" class="form-control" ng-model=" $ctrl.password ">
-        </b-form-group>
+      <div class="form-group">
+        <label>Password</label>
+        <input type="password" class="form-control" ng-model=" $ctrl.password ">
+      </div>
 
-        <b-button text="Sign in" ng-click=" $ctrl.signIn() "></b-button>
-      </b-container>
+      <b-button text="Sign in" ng-click=" $ctrl.signIn() "></b-button>
     </b-page>
   `,
 

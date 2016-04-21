@@ -6,41 +6,41 @@ angular.module('app').component('contactForm', {
   },
 
   template: `
-    <b-form>
-      <b-form-group>
+    <form>
+      <div class="form-group">
         <label>Name</label>
         <b-input ng-model=" $ctrl.contact.name " />
-      </b-form-group>
+      </div>
 
-      <b-form-group>
+      <div class="form-group">
         <label>Company</label>
         <b-input ng-model=" $ctrl.contact.company " />
-      </b-form-group>
+      </div>
 
-      <b-form-group>
+      <div class="form-group">
         <label>Job Title</label>
         <b-input ng-model=" $ctrl.contact.jobTitle " />
-      </b-form-group>
+      </div>
 
-      <b-form-group>
+      <div class="form-group">
         <label>Phone</label>
         <b-input ng-model=" $ctrl.contact.phone " />
-      </b-form-group>
+      </div>
 
-      <b-form-group>
+      <div class="form-group">
         <label>Email</label>
         <b-input ng-model=" $ctrl.contact.email " />
-      </b-form-group>
+      </div>
 
-      <b-form-group>
+      <div class="form-group">
         <label>Address</label>
         <b-textarea ng-model=" $ctrl.contact.address "></b-textarea>
-      </b-form-group>
+      </div>
 
-      <b-form-group>
+      <div class="form-group">
         <label>Note</label>
         <b-textarea ng-model=" $ctrl.contact.note "></b-textarea>
-      </b-form-group>
-    </b-form>
+      </div>
+    </form>
   `
 });

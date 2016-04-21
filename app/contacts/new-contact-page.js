@@ -4,17 +4,11 @@ import './_contact-form';
 angular.module('app').component('newContactPage', {
   template: `
     <b-page>
-      <b-jumbotron>
-        <b-container>
-          <h3>New contact</h3>
-        </b-container>
-      </b-jumbotron>
+      <h3>New contact</h3>
 
-      <b-container>
-        <contact-form contact=" $ctrl.contact "></contact-form>
+      <contact-form contact=" $ctrl.contact "></contact-form>
 
-        <b-button text="Create" ng-click=" $ctrl.create() "></b-button>
-      </b-container>
+      <b-button text="Create" ng-click=" $ctrl.create() "></b-button>
     </b-page>
   `,
 

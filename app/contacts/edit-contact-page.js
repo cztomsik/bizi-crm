@@ -4,20 +4,14 @@ import './_contact-form';
 angular.module('app').component('editContactPage', {
   template: `
     <b-page>
-      <b-jumbotron>
-        <b-container>
-          <h3>
-            Edit contact<br>
-            <small>{{ $ctrl.contact.name }}</small>
-          </h3>
-        </b-container>
-      </b-jumbotron>
+      <h3>
+        Edit contact<br>
+        <small>{{ $ctrl.contact.name }}</small>
+      </h3>
 
-      <b-container>
-        <contact-form contact=" $ctrl.contact "></contact-form>
+      <contact-form contact=" $ctrl.contact "></contact-form>
 
-        <b-button text="Update" ng-click=" $ctrl.update() "></b-button>
-      </b-container>
+      <b-button text="Update" ng-click=" $ctrl.update() "></b-button>
     </b-page>
   `,
 
