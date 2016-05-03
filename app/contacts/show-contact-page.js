@@ -3,27 +3,26 @@ import angular from 'angular';
 angular.module('app').component('showContactPage', {
   template: `
     <b-page>
-      <div class="btn-group pull-right">
-        <b-button text="Edit" ng-click=" $ctrl.edit() "></b-button>
-        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          <span class="caret"></span>
-        </button>
-        <ul class="dropdown-menu">
-          <li><a ng-click=" $ctrl.clone() ">Clone</a></li>
-          <li role="separator" class="divider"></li>
-          <li><a ng-click=" $ctrl.delete() ">Delete</a></li>
-        </ul>
+      <div class="clearfix">
+        <div class="btn-group pull-right">
+          <b-button text="Edit" $$on-click=" $ctrl.edit() "></b-button>
+          <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <span class="caret"></span>
+          </button>
+          <ul class="dropdown-menu">
+            <li><a ng-click=" $ctrl.clone() ">Clone</a></li>
+            <li role="separator" class="divider"></li>
+            <li><a ng-click=" $ctrl.delete() ">Delete</a></li>
+          </ul>
+        </div>
+
+        <b-media>
+          <img src="//dummyimage.com/48x48/000/fff/">
+          <h4 class="media-heading">{{ $ctrl.contact.name }}</h4>
+          <span>{{ $ctrl.contact.company }}</span>
+        </b-media>
       </div>
 
-      <div class="media">
-        <div class="media-left">
-          <img src="//dummyimage.com/48x48/000/fff/">
-        </div>
-        <div class="media-body">
-          <h3 class="media-heading">{{ $ctrl.contact.name }}</h3>
-          {{ $ctrl.contact.company }}
-        </div>
-      </div>
 
       <div class="row">
         <div class="col-sm-5">

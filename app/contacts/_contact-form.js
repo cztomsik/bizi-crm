@@ -9,27 +9,27 @@ angular.module('app').component('contactForm', {
     <form>
       <div class="form-group">
         <label>Name</label>
-        <b-input ng-model=" $ctrl.contact.name " />
+        <b-text-input ng-model=" $ctrl.contact.name " />
       </div>
 
       <div class="form-group">
         <label>Company</label>
-        <b-input ng-model=" $ctrl.contact.company " />
+        <b-text-input ng-model=" $ctrl.contact.company " />
       </div>
 
       <div class="form-group">
         <label>Job Title</label>
-        <b-input ng-model=" $ctrl.contact.jobTitle " />
+        <b-text-input ng-model=" $ctrl.contact.jobTitle " />
       </div>
 
       <div class="form-group">
         <label>Phone</label>
-        <b-input ng-model=" $ctrl.contact.phone " />
+        <b-text-input ng-model=" $ctrl.contact.phone " />
       </div>
 
       <div class="form-group">
         <label>Email</label>
-        <b-input ng-model=" $ctrl.contact.email " />
+        <b-text-input ng-model=" $ctrl.contact.email " />
       </div>
 
       <div class="form-group">

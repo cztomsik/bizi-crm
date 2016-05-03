@@ -15,27 +15,38 @@ appModule.component('app', {
   template: `
     <div class="app">
       <b-navbar class="navbar-inverse">
-        <b-container class="nav navbar-nav">
+        <b-wrapper class="nav navbar-nav">
           <li><a ng-link=" ['HomePage'] ">Home</a></li>
           <li><a ng-link=" ['ContactListingPage'] ">Contacts</a></li>
-        </b-container>
+        </b-wrapper>
 
-        <b-container class="nav navbar-nav">
+        <b-wrapper class="nav navbar-nav">
           <li class="dropdown">
             <a href="" data-toggle="dropdown">John Doe <i class="caret"></i></a>
             <ul class="dropdown-menu">
               <li><a ng-link=" ['SignInPage'] ">Sign out...</a></li>
             </ul>
           </li>
-        </b-container>
+        </b-wrapper>
       </b-navbar>
 
       <b-sidebar ng-if>
-        <b-container class="nav">
+        <b-wrapper class="nav">
           <li><a ng-link=" ['HomePage'] ">Home</a></li>
           <li><a ng-link=" ['ContactListingPage'] ">Contacts</a></li>
-        </b-container>
+        </b-wrapper>
       </b-sidebar>
+
+      <b-tree
+        $items=" [
+          {text: 'Root', children: [
+            {text: 'Sub', children: [
+              {text: 'GrandChild'}
+            ]},
+            {text: 'Child'}
+          ]}
+        ] "
+      />
 
       <ng-outlet>
     </div>
@@ -57,76 +68,8 @@ appModule.component('app', {
   ]
 });
 
-appModule.directive('panes', ($compile, $timeout) => {
-  return {
-    restrict: 'E',
-    // ng-repeat/ng-if is not required here
-    priority: Number.MAX_VALUE,
-    terminal: true,
-    scope: true,
-    compile: () => {
-      return ($scope, $el) => {
-        const $tabsEl = $el.parent();
 
-        $compile($el.children())($scope);
 
-        update();
-
-        $scope.$on('pane', update);
-        $el.remove();
-
-        function update(){
-          const panes = $el.children().get().map((el) => {
-            return el.pane;
-          });
-
-          // at this point, instance is not linked
-          $timeout(() => {
-            if ($tabsEl[0].instance){
-              $tabsEl[0].instance.set({panes});
-            }
-          });
-
-          //console.log(panes);
-        }
-      };
-    }
-  };
-});
-
-appModule.directive('pane', () => {
-  return {
-    restrict: 'E',
-    link: function($scope, $el, attrs){
-      const pane = {
-        header: attrs.header,
-        contents: $el.contents()
-      };
-
-      $el[0].pane = pane;
-
-      console.log('+pane');
-      $scope.$emit('pane');
-
-      $scope.$on('$destroy', () => {
-        console.log('-pane');
-        $scope.$emit('pane');
-      });
-    }
-  };
-});
-
-// ngRepeat does not expect us to replace elements with entirely different nodes so it will try to "reorder"
-// all repeated "blocks" - to do so it will call $animate.move()
-//
-// this hack is our only chance to prevent the mess it would do in DOM.
-appModule.run(($animate) => {
-  const animateMove = $animate.move;
-
-  $animate.move = (element, parent, after, options) => {
-    return animateMove((element && element[0].shadow) || element, parent, after, options);
-  };
-});
 
 Object.keys(b).forEach((k) => {
   const Comp = b[k];
@@ -145,6 +88,14 @@ Object.keys(b).forEach((k) => {
         let instance;
 
         for (let k in attrs.$attr){
+          if (k.startsWith('$$')){
+            options[k.slice(2)] = () => {
+              $scope.$eval(attrs[k]);
+              $scope.$apply();
+            };
+            continue;
+          }
+
           if (k.startsWith('$')){
             bind(k.slice(1), attrs[k]);
             continue;
@@ -159,8 +110,8 @@ Object.keys(b).forEach((k) => {
         delete options.class;
 
         if (ngModel){
-          options.onValue = (e) => {
-            ngModel.$setViewValue(e.target.value);
+          options.onValue = (sender) => {
+            ngModel.$setViewValue(sender.value);
           };
         }
 
@@ -187,8 +138,6 @@ Object.keys(b).forEach((k) => {
         });
 
         $el[0].parentNode.replaceChild(instance.el, $el[0]);
-
-        // see hack above
         $el[0].shadow = instance.el;
 
 

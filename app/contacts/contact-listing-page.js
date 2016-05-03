@@ -3,23 +3,45 @@ import angular from 'angular';
 angular.module('app').component('contactListingPage', {
   template: `
     <b-page>
-      <h3 class="pull-left">Contacts</h3>
+      <div class="clearfix">
+        <a class="btn btn-default pull-right" ng-link=" ['NewContactPage'] ">New contact</a>
+        <h3 class="pull-left">Contacts</h3>
+      </div>
 
-      <a class="btn btn-default pull-right" ng-link=" ['NewContactPage'] ">New contact</a>
+      <pre class="well">{{ $ctrl.selectedContact }}</pre>
+
+      <b-select
+        $items=" $ctrl.contacts "
+        ng-model=" $ctrl.selectedContact "
+      />
+
+      <b-nav
+        class="nav-tabs"
+        $items=" $ctrl.contacts "
+        ng-model=" $ctrl.selectedContact "
+      />
+
+      <b-list
+        $items=" $ctrl.contacts "
+        ng-model=" $ctrl.selectedContact "
+      />
+
+      <br>
+
 
       <div class="row lead">
         <div class="col-sm-4"></div>
         <div class="col-sm-4">
-          <b-input placeholder="Search" ng-model="$ctrl.search" ng-change=" $ctrl.searchContacts($ctrl.search) " />
+          <b-text-input placeholder="Search" ng-model="$ctrl.search" ng-change=" $ctrl.searchContacts($ctrl.search) " />
         </div>
       </div>
 
       <b-data-table
         $columns=" [
-          {header: 'Name'},
-          {header: 'Company'},
-          {header: 'Job Title'},
-          {header: 'Email'}
+          {header: 'Name', key: 'name'},
+          {header: 'Company', key: 'company'},
+          {header: 'Job Title', key: 'jobTitle'},
+          {header: 'Email', key: 'email'}
         ] "
 
         $items="$ctrl.contacts"

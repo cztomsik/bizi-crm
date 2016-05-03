@@ -9,15 +9,33 @@ angular.module('app').component('signInPage', {
         {{ $ctrl.error }}
       </div>
 
-      <div class="form-group">
-        <label>Username</label>
-        <b-input ng-model=" $ctrl.username " />
-      </div>
+      <b-grid>
+        <b-grid>
+          <label>Username</label>
+          <b-text-input ng-model=" $ctrl.username " />
 
-      <div class="form-group">
-        <label>Password</label>
-        <input type="password" class="form-control" ng-model=" $ctrl.password ">
-      </div>
+          <label>Password</label>
+          <input type="password" class="form-control" ng-model=" $ctrl.password ">
+
+          <span />
+          <b-checkbox text="Remember me" ng-model=" $ctrl.kokot " />
+        </b-grid>
+
+        <div>
+          <div class="form-group">
+            <label>Username</label>
+            <b-text-input ng-model=" $ctrl.username " />
+          </div>
+
+          <div class="form-group">
+            <label>Password</label>
+            <input type="password" class="form-control" ng-model=" $ctrl.password ">
+          </div>
+
+          <b-checkbox ng-model=" $ctrl.kokot " text="Remember me" />
+          <b-checkbox ng-model=" $ctrl.kokot " text="Don't Remember me" $inverse=" true " />
+        </div>
+      </b-grid>
 
       <b-button text="Sign in" ng-click=" $ctrl.signIn() "></b-button>
     </b-page>

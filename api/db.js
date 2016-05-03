@@ -1,13 +1,25 @@
 'use strict';
 
 const _ = require('lodash');
+
+
+// SQLite3
 const sqlite3 = require('sqlite3');
 const sqliteDb = new sqlite3.Database(':memory:');
+sqlite3.verbose();
 
+
+
+
+// TODO: consider views
+// it might be reasonable to force views for "OR" queries
 const db = {
-  query(sql, params){
-    console.info(sql, params);
+  table(name){
+    return new Table(name);
+  },
 
+  query(sql, params){
+    console.log(arguments);
     return new Promise((resolve, reject) => {
       const meth = sql.match(/insert|replace/i) ?'run' :'all';
 
@@ -28,52 +40,45 @@ const db = {
     });
   },
 
-  find(table, params){
-    return this.query('SELECT * FROM ' + table + ' WHERE ' + where(params) + ' LIMIT 1', values(params)).then(rows => rows[0]);
-  },
-
-  insert(table, data){
-    return this.query('INSERT INTO ' + table + ' (' + columns(data) + ') VALUES (' + placeholders(data) + ')', values(data));
-  },
-
-  update(table, params, data){
-    return this.query('UPDATE ' + table + ' (' + columns(data) + ') ' + ' WHERE ' + where(params) + ' VALUES (' + placeholders(data) + ')', values(data));
-  },
-
   delete(table, params){
     return this.query('DELETE FROM ' + table + ' WHERE ' + where(params), values(params));
-  },
-
-  getContacts(){
-    return this.query('SELECT * FROM contacts');
   }
 };
 
-sqlite3.verbose();
+class Table{
+  constructor(name){
+    this.name = name;
+  }
 
-sqliteDb.serialize(() => {
-  sqliteDb.run(`
-    CREATE TABLE contacts (
-      id INTEGER PRIMARY KEY AUTOINCREMENT,
-      name TEXT NOT NULL,
-      company TEXT NOT NULL,
-      job_title TEXT NOT NULL,
-      phone TEXT NOT NULL,
-      email TEXT NOT NULL,
-      address TEXT NOT NULL,
-      note TEXT NOT NULL
-    );
-  `);
+  save(data){
+    return (data.id) ?this.update(data) :this.create(data);
+  }
 
-  // TODO: postinstall?
-  const contacts = require('./_contacts');
+  create(data){
+    return db.query(`INSERT INTO ${this.name} (${columns(data)}) VALUES (${placeholders(data)})`, values(data));
+  }
 
-  contacts.slice(0, 3).forEach(c => db.insert('contacts', c).catch(e => console.error(e)));
+  update(data){
+    return db.query(`UPDATE ${this.name} SET ${set(data)} WHERE ${where(params)}`, values(data).concat(values(params)));
+  }
 
-  db.query('SELECT * FROM contacts').then(rows => console.log(rows));
-});
+  find(predicate){
+    return db.query(`SELECT * from ${this.name} WHERE id = ?`, predicate.id).then(_.first);
+  }
+
+  all(){
+    return db.query(`SELECT * from ${this.name}`);
+  }
+
+  // meant for chaining
+  none(){
+    return Promise.resolve([]);
+  }
+}
 
 module.exports = db;
+
+
 
 
 function placeholders(obj){
@@ -96,14 +101,17 @@ function where(params){
   return Object.keys(params).map(k => k + ' = ?').join(', ');
 }
 
+function set(data){
+  return Object.keys(data).map(k => [_.snakeCase(k), '?'].join(' = ')).join(', ');
+}
+
 // `SELECT col_name AS colName` is not enough
 // - postgres always returns lowercase column names
+
 function camelCaseObject(obj){
-  const res = {};
+  return _.mapKeys(obj, _.rearg(_.camelCase, 1, 0));
+}
 
-  for (let k in obj){
-    res[_.camelCase(k)] = obj[k];
-  }
-
-  return res;
+function quote(str){
+  return '\'' + str.replace(/'/g, '\'\'') + '\'';
 }

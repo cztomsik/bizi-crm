@@ -11,7 +11,7 @@ angular.module('app').component('editContactPage', {
 
       <contact-form contact=" $ctrl.contact "></contact-form>
 
-      <b-button text="Update" ng-click=" $ctrl.update() "></b-button>
+      <b-button text="Update" $$on-click=" $ctrl.update() "></b-button>
     </b-page>
   `,
 
