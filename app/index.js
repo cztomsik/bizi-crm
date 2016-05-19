@@ -2,7 +2,20 @@ import * as b from 'bizi';
 import appModule from './app-module';
 import './home/home-page.js';
 import './sign-in/sign-in-page.js';
-import './contacts/contact-service.js';
+
+import './accounts/accounts-service.js';
+import './accounts/account-listing-page.js';
+import './accounts/show-account-page.js';
+import './accounts/new-account-page.js';
+import './accounts/edit-account-page.js';
+
+import './opportunities/opportunities-service.js';
+import './opportunities/opportunity-listing-page.js';
+import './opportunities/show-opportunity-page.js';
+import './opportunities/new-opportunity-page.js';
+import './opportunities/edit-opportunity-page.js';
+
+import './contacts/contacts-service.js';
 import './contacts/contact-listing-page.js';
 import './contacts/show-contact-page.js';
 import './contacts/new-contact-page.js';
@@ -15,52 +28,57 @@ appModule.component('app', {
   template: `
     <div class="app">
       <b-navbar class="navbar-inverse">
-        <b-wrapper class="nav navbar-nav">
+        <div class="nav navbar-nav">
           <li><a ng-link=" ['HomePage'] ">Home</a></li>
+          <li><a ng-link=" ['AccountListingPage'] ">Accounts</a></li>
+          <li><a ng-link=" ['OpportunityListingPage'] ">Opportunities</a></li>
           <li><a ng-link=" ['ContactListingPage'] ">Contacts</a></li>
-        </b-wrapper>
+        </div>
 
-        <b-wrapper class="nav navbar-nav">
+        <div class="nav navbar-nav">
           <li class="dropdown">
             <a href="" data-toggle="dropdown">John Doe <i class="caret"></i></a>
             <ul class="dropdown-menu">
               <li><a ng-link=" ['SignInPage'] ">Sign out...</a></li>
             </ul>
           </li>
-        </b-wrapper>
+        </div>
       </b-navbar>
 
-      <b-sidebar ng-if>
-        <b-wrapper class="nav">
-          <li><a ng-link=" ['HomePage'] ">Home</a></li>
-          <li><a ng-link=" ['ContactListingPage'] ">Contacts</a></li>
-        </b-wrapper>
-      </b-sidebar>
+      <ng-outlet />
 
-      <b-tree
-        $items=" [
-          {text: 'Root', children: [
-            {text: 'Sub', children: [
-              {text: 'GrandChild'}
-            ]},
-            {text: 'Child'}
-          ]}
-        ] "
-      />
-
-      <ng-outlet>
+      <pre>{{ $ctrl.getPageTemplate() }}</pre>
     </div>
   `,
 
-  controller: function($rootRouter){
+  controller: function($rootRouter, $injector){
+    window.$injector = $injector;
+
     this.signOut = function(){
       $rootRouter.navigate(['SignInPage']);
+    };
+
+    this.getPageTemplate = function(){
+      const pageDirective = $injector.get($rootRouter._childRouter.hostComponent + 'Directive')[0];
+
+      return pageDirective.template;
     };
   },
 
   $routeConfig: [
     {name: 'HomePage', path: '/home', component: 'homePage', useAsDefault: true},
     {name: 'SignInPage', path: '/sign-in', component: 'signInPage'},
+
+    {name: 'AccountListingPage', path: '/accounts', component: 'accountListingPage'},
+    {name: 'NewAccountPage', path: '/accounts/new', component: 'newAccountPage'},
+    {name: 'ShowAccountPage', path: '/accounts/:id', component: 'showAccountPage'},
+    {name: 'EditAccountPage', path: '/accounts/:id/edit', component: 'editAccountPage'},
+
+    {name: 'OpportunityListingPage', path: '/opportunities', component: 'opportunityListingPage'},
+    {name: 'NewOpportunityPage', path: '/opportunities/new', component: 'newOpportunityPage'},
+    {name: 'ShowOpportunityPage', path: '/opportunities/:id', component: 'showOpportunityPage'},
+    {name: 'EditOpportunityPage', path: '/opportunities/:id/edit', component: 'editOpportunityPage'},
+
     {name: 'ContactListingPage', path: '/contacts', component: 'contactListingPage'},
     {name: 'NewContactPage', path: '/contacts/new', component: 'newContactPage'},
     {name: 'ShowContactPage', path: '/contacts/:id', component: 'showContactPage'},

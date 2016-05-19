@@ -10,31 +10,14 @@ angular.module('app').component('signInPage', {
       </div>
 
       <b-grid>
-        <b-grid>
-          <label>Username</label>
-          <b-text-input ng-model=" $ctrl.username " />
+        <label>Username</label>
+        <b-text-input ng-model=" $ctrl.username " />
 
-          <label>Password</label>
-          <input type="password" class="form-control" ng-model=" $ctrl.password ">
+        <label>Password</label>
+        <input type="password" class="form-control" ng-model=" $ctrl.password ">
 
-          <span />
-          <b-checkbox text="Remember me" ng-model=" $ctrl.kokot " />
-        </b-grid>
-
-        <div>
-          <div class="form-group">
-            <label>Username</label>
-            <b-text-input ng-model=" $ctrl.username " />
-          </div>
-
-          <div class="form-group">
-            <label>Password</label>
-            <input type="password" class="form-control" ng-model=" $ctrl.password ">
-          </div>
-
-          <b-checkbox ng-model=" $ctrl.kokot " text="Remember me" />
-          <b-checkbox ng-model=" $ctrl.kokot " text="Don't Remember me" $inverse=" true " />
-        </div>
+        <span ng-show=" $ctrl.rememberMe ">If this was for real you would be remembered</span>
+        <b-checkbox text="Remember me" ng-model=" $ctrl.rememberMe " />
       </b-grid>
 
       <b-button text="Sign in" ng-click=" $ctrl.signIn() "></b-button>

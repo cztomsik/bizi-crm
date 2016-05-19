@@ -1,18 +1,18 @@
 import angular from 'angular';
 
-angular.module('app').component('contactForm', {
+angular.module('app').component('accountForm', {
   bindings: {
-    contact: '<'
+    account: '<'
   },
 
   template: `
     <form>
       <b-grid>
         <label>Name</label>
-        <b-text-input ng-model=" $ctrl.contact.name " />
+        <b-text-input ng-model=" $ctrl.account.name " />
 
         <label>Name</label>
-        <b-text-input ng-model=" $ctrl.contact.name " />
+        <b-text-input ng-model=" $ctrl.account.name " />
       </b-grid>
     </form>
   `

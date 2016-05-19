@@ -1,4 +1,5 @@
 import angular from 'angular';
+import contactsService from './contacts-service';
 import './_contact-form';
 
 angular.module('app').component('newContactPage', {
@@ -6,27 +7,26 @@ angular.module('app').component('newContactPage', {
     <b-page>
       <h3>New contact</h3>
 
+      <!-- angular component -->
       <contact-form contact=" $ctrl.contact "></contact-form>
 
       <b-button text="Create" ng-click=" $ctrl.create() "></b-button>
     </b-page>
   `,
 
-  controller: function(contactService, $rootRouter){
-    this.contact = {
-      name: null,
-      company: null,
-      jobTitle: null,
-      phone: null,
-      email: null,
-      address: null,
-      note: null
-    };
+  controller: class NewContactPageController{
+    constructor($rootRouter){
+      this.$rootRouter = $rootRouter;
 
-    this.create = function(){
-      return contactService.createContact(this.contact).then((c) => {
-        return $rootRouter.navigate(['ShowContactPage', {id: c.id}]);
+      this.contact = {
+        name: null
+      };
+    }
+
+    create(){
+      return contactsService.createContact(this.contact).then((c) => {
+        return this.$rootRouter.navigate(['ShowContactPage', {id: c.id}]);
       });
-    };
+    }
   }
 });

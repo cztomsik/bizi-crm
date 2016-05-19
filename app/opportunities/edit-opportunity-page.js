@@ -1,6 +1,6 @@
 import angular from 'angular';
 
-angular.module('app').component('editContactPage', {
+angular.module('app').component('editOpportunityPage', {
   template: `
     <b-page>
       TODO
